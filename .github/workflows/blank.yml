@@ -6,12 +6,8 @@ on:
   pull_request:
     branches:
       - "*"
-      - "!renovate/**"
   issue_comment:
     types: [created]
-    branches:
-      - "*"
-      - "!renovate/**"  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,6 +15,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.head_ref, 'renovate/') && !startsWith(github.ref_name, 'refs/heads/renovate/') }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
